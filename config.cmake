@@ -1,7 +1,7 @@
 find_path(BOOST_H NAMES boost/system/error_code.hpp)
 find_path(TR1_H NAMES tr1/functional)
 find_library(BOOST_SYSTEM_LIB NAMES libboost_system.a)
-find_library(BOOST_THREAD_LIB NAMES libboost_thread-mt.a)
+find_library(BOOST_THREAD_LIB NAMES libboost_thread.a)
 if(NOT BOOST_H OR NOT TR1_H OR NOT BOOST_SYSTEM_LIB OR NOT BOOST_THREAD_LIB)
     message(FATAL_ERROR "boost library(boost_system/boost_thread) not found.")
 endif()

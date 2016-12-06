@@ -1,0 +1,6 @@
+build/
+output/
+protocol/*.cpp
+protocol/*.h
+*.pb.cc
+*.pb.h

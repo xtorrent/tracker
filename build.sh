@@ -1,13 +1,15 @@
 #! /bin/bash
 
+set -x
+set -o errexit
+
 cd "$(dirname "$0")"
 
-set -x
 ROOT_DIR=$(pwd)
 BUILD=${ROOT_DIR}/build
 OUTPUT=${ROOT_DIR}/output
 
-BOOST_DIR=
+BOOST_DIR=/usr/local/boost
 PROTOBUF_DIR=/usr/local/protobuf
 LIBEVENT_DIR=/usr/local/libevent
 GFLAGS_DIR=/usr/local/gflags
@@ -21,7 +23,7 @@ do
     CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}:${libdir}/lib
 done
 
-export CMAKE_INCLUDE_PATH=${CMAKE_INCLUDE_PATH}:/usr/include/boost/tr1:/usr/local/include:/usr/include
+export CMAKE_INCLUDE_PATH=${CMAKE_INCLUDE_PATH}:${BOOST_DIR}/include/boost/tr1:/usr/local/include:/usr/include
 export CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}:/usr/local/lib:/usr/lib64:/usr/lib
 
 export PATH=$PROTOBUF_DIR/bin:$THRIFT_DIR/bin:$PATH
