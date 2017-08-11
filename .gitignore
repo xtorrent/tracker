@@ -4,3 +4,5 @@ protocol/*.cpp
 protocol/*.h
 *.pb.cc
 *.pb.h
+cmake-build-debug
+.idea

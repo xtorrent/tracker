@@ -1,5 +1,5 @@
 INCLUDE(${PROJECT_SOURCE_DIR}/config.cmake)
-SET(MOCK_LINK_LIBS bbts_protocol ${THRIFTNB_LIB} ${THRIFT_LIB} ${BOOST_THREAD_LIB} ${BOOST_SYSTEM_LIB} pthread rt)
+SET(MOCK_LINK_LIBS gko3-protocol ${THRIFTNB_LIB} ${THRIFT_LIB} ${BOOST_THREAD_LIB} ${BOOST_SYSTEM_LIB} pthread rt)
 
 ADD_EXECUTABLE(client_mock_infohash client_mock_infohash.cpp)
 TARGET_LINK_LIBRARIES(client_mock_infohash ${MOCK_LINK_LIBS})

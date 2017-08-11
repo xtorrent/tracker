@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 
 ROOT_DIR=$(pwd)
 BUILD=${ROOT_DIR}/build
-OUTPUT=${ROOT_DIR}/output
+GKO3_TRACKER=${ROOT_DIR}/output/gko3-tracker
 
 BOOST_DIR=/usr/local/boost
 PROTOBUF_DIR=/usr/local/protobuf
@@ -28,12 +28,17 @@ export CMAKE_LIBRARY_PATH=${CMAKE_LIBRARY_PATH}:/usr/local/lib:/usr/lib64:/usr/l
 
 export PATH=$PROTOBUF_DIR/bin:$THRIFT_DIR/bin:$PATH
 
-rm -fr ${OUTPUT}
-mkdir -p ${OUTPUT} ${BUILD}
+rm -fr ${GKO3_TRACKER}
+mkdir -p ${GKO3_TRACKER} ${BUILD}
+mkdir -p ${GKO3_TRACKER}/log
+
+echo "Generate verion and timestamp ..."
+echo $(date -d  today +%Y%m%d%H%M%S) > ${GKO3_TRACKER}/version
+
+
 cd src && protoc --cpp_out=. *.proto && cd -
 cd protocol && thrift --gen cpp -out . tracker.thrift && thrift --gen cpp -out . inner.thrift && thrift --gen cpp -out . announce.thrift && cd -
-cd ${BUILD} && cmake .. -DCMAKE_INSTALL_PREFIX=${OUTPUT}/ && make && make install && cd ..
+cd ${BUILD} && cmake .. -DCMAKE_INSTALL_PREFIX=${GKO3_TRACKER}/ && make && make install && cd - || exit $?
 
-mkdir -p output/log
-cd output && tar --owner=0 --group=0 --mode=-s --mode=go-w -czvf bbts_tracker.tar.gz bin conf log
+cd output && tar --owner=0 --group=0 --mode=-s --mode=go-w -czvf gko3-tracker.tgz gko3-tracker
 
